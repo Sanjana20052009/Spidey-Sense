@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SPIDEY-SENSE | AI Fraud Detection</title>
+    <title>Spidey-Sense | AI Fraud Detection</title>
 
     <link rel="stylesheet" href="style.css">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -20,36 +19,47 @@
 
 <nav class="navbar">
 
-    <div class="logo">
-        <span>SPIDEY</span><b>-SENSE</b>
+    <div class="brand">
+
+        <div class="spider-logo">
+            <span>🕷</span>
+        </div>
+
+        <div>
+            <div class="brand-name">SPIDEY<span>-SENSE</span></div>
+            <div class="brand-sub">AI FRAUD DETECTION</div>
+        </div>
+
     </div>
 
     <div class="nav-links">
         <a href="#dashboard">Dashboard</a>
-        <a href="#analyzer">Analyzer</a>
-        <a href="#how">How It Works</a>
+        <a href="#engine">AI Engine</a>
+        <a href="#risk">Risk</a>
+        <a href="#agent">Agent</a>
     </div>
 
-    <div class="status">
-        <span class="status-dot"></span>
-        SYSTEM ONLINE
-    </div>
+    <button class="status">
+        <span></span> SYSTEM ONLINE
+    </button>
 
 </nav>
 
 
 <!-- ================= HERO ================= -->
 
-<section class="hero">
+<section class="hero" id="dashboard">
 
     <div class="hero-content">
 
-        <div class="tag">
-            🕷 AI-POWERED FRAUD DETECTION
+        <div class="eyebrow">
+            AI-POWERED FRAUD INTELLIGENCE
         </div>
 
         <h1>
-            Your money deserves a
+            YOUR MONEY
+            <br>
+            DESERVES A
             <span>SPIDEY-SENSE.</span>
         </h1>
 
@@ -60,16 +70,12 @@
 
         <div class="hero-buttons">
 
-            <button
-                class="primary-btn"
-                onclick="scrollToAnalyzer()">
+            <button class="primary-btn" onclick="scrollToAnalyzer()">
                 ANALYZE TRANSACTION →
             </button>
 
-            <button
-                class="secondary-btn"
-                onclick="scrollToHow()">
-                HOW IT WORKS
+            <button class="secondary-btn" onclick="showDemo()">
+                RUN DEMO
             </button>
 
         </div>
@@ -77,7 +83,7 @@
     </div>
 
 
-    <div class="spider-visual">
+    <div class="hero-visual">
 
         <div class="radar">
 
@@ -90,82 +96,9 @@
             <div class="radar-dot"></div>
 
             <div class="radar-center">
-                <span>AI</span>
+                <div>AI</div>
+                <strong>READY</strong>
             </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= DASHBOARD ================= -->
-
-<section id="dashboard" class="dashboard-section">
-
-    <div class="section-title">
-
-        <span>01 — LIVE MONITORING</span>
-
-        <h2>
-            SPIDEY-SENSE
-            <strong>DASHBOARD</strong>
-        </h2>
-
-    </div>
-
-
-    <div class="stats-grid">
-
-        <div class="stat-card">
-
-            <div class="stat-icon blue-icon">⚡</div>
-
-            <p>TRANSACTIONS ANALYZED</p>
-
-            <h3 id="transactions">12,481</h3>
-
-            <small>↑ 12.4% today</small>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon red-icon">⚠</div>
-
-            <p>THREATS DETECTED</p>
-
-            <h3 id="threats">347</h3>
-
-            <small>Requires attention</small>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon green-icon">✓</div>
-
-            <p>SAFE TRANSACTIONS</p>
-
-            <h3>97.2%</h3>
-
-            <small>Current detection rate</small>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-icon purple-icon">🧠</div>
-
-            <p>MODEL CONFIDENCE</p>
-
-            <h3>94.8%</h3>
-
-            <small>AI confidence</small>
 
         </div>
 
@@ -176,232 +109,100 @@
 
 <!-- ================= ANALYZER ================= -->
 
-<section id="analyzer" class="analyzer-section">
+<section class="analyzer-section" id="analyzer">
 
     <div class="section-title">
 
-        <span>02 — TRANSACTION ANALYZER</span>
+        <div class="section-number">01 — LIVE ANALYSIS</div>
 
-        <h2>
-            LET THE
-            <strong>SPIDEY-SENSE</strong>
-            TINGLE
-        </h2>
+        <h2>SPIDEY-SENSE <span>TINGLING</span></h2>
 
         <p>
-            Enter transaction information to simulate fraud analysis.
+            Enter transaction details and let the system evaluate the risk.
         </p>
 
     </div>
 
 
-    <div class="analyzer-container">
+    <div class="analyzer-grid">
 
+        <div class="transaction-form">
 
-        <!-- INPUT CARD -->
-
-        <div class="input-card">
-
-            <h3>TRANSACTION DETAILS</h3>
+            <div class="card-header">
+                <span class="blue-dot"></span>
+                TRANSACTION INPUT
+            </div>
 
             <div class="form-grid">
 
-
                 <div class="input-group">
-
-                    <label>Transaction Amount</label>
-
-                    <div class="input-wrapper">
-                        <span>₹</span>
-
-                        <input
-                            id="amount"
-                            type="number"
-                            value="87500">
-                    </div>
-
+                    <label>AMOUNT</label>
+                    <input id="amount" type="number" value="2450">
                 </div>
 
-
                 <div class="input-group">
-
-                    <label>Customer Average</label>
-
-                    <div class="input-wrapper">
-                        <span>₹</span>
-
-                        <input
-                            id="average"
-                            type="number"
-                            value="10000">
-                    </div>
-
+                    <label>LOCATION</label>
+                    <input id="location" type="text" value="Chennai">
                 </div>
 
-
                 <div class="input-group">
-
-                    <label>Transaction Location</label>
-
-                    <input
-                        id="location"
-                        type="text"
-                        value="Mumbai">
-
+                    <label>DEVICE</label>
+                    <select id="device">
+                        <option>Known device</option>
+                        <option>New device</option>
+                    </select>
                 </div>
 
-
                 <div class="input-group">
-
-                    <label>Usual Location</label>
-
-                    <input
-                        id="usualLocation"
-                        type="text"
-                        value="Chennai">
-
+                    <label>MERCHANT</label>
+                    <input id="merchant" type="text" value="Familiar merchant">
                 </div>
 
-
                 <div class="input-group">
-
-                    <label>Transaction Time</label>
-
-                    <input
-                        id="time"
-                        type="time"
-                        value="10:44">
-
+                    <label>VELOCITY</label>
+                    <input id="velocity" type="number" value="1">
                 </div>
 
-
                 <div class="input-group">
-
-                    <label>Transactions / 10 min</label>
-
-                    <input
-                        id="velocity"
-                        type="number"
-                        value="6">
-
+                    <label>TRANSACTION TIME</label>
+                    <input id="time" type="time" value="10:42">
                 </div>
 
             </div>
 
-
-            <div class="switches">
-
-                <label class="switch-row">
-
-                    <span>
-                        <b>New Device</b>
-                        <small>Device not previously seen</small>
-                    </span>
-
-                    <input
-                        id="newDevice"
-                        type="checkbox"
-                        checked>
-
-                    <span class="slider"></span>
-
-                </label>
-
-
-                <label class="switch-row">
-
-                    <span>
-                        <b>Unfamiliar Merchant</b>
-                        <small>Merchant not in history</small>
-                    </span>
-
-                    <input
-                        id="merchant"
-                        type="checkbox"
-                        checked>
-
-                    <span class="slider"></span>
-
-                </label>
-
-            </div>
-
-
-            <button
-                class="analyze-btn"
-                onclick="analyzeTransaction()">
-
-                🕷 ANALYZE TRANSACTION
-
+            <button class="analyze-btn" onclick="analyzeTransaction()">
+                <span>🕷</span>
+                ANALYZE TRANSACTION
             </button>
 
         </div>
 
 
-        <!-- RESULT CARD -->
+        <div class="live-status">
 
-        <div class="result-card">
-
-            <div class="result-header">
-
-                <span>AI ANALYSIS</span>
-
-                <div id="riskBadge" class="risk-badge">
-                    WAITING
-                </div>
-
+            <div class="card-header">
+                <span class="green-dot"></span>
+                LIVE SYSTEM STATUS
             </div>
 
-
-            <div class="risk-circle">
-
-                <div class="circle-inner">
-
-                    <strong id="riskScore">
-                        --
-                    </strong>
-
-                    <span>RISK SCORE</span>
-
-                </div>
-
+            <div class="status-item">
+                <span>ML MODEL</span>
+                <strong class="online">ONLINE</strong>
             </div>
 
-
-            <div class="probability">
-
-                <span>FRAUD PROBABILITY</span>
-
-                <strong id="probability">
-                    --%
-                </strong>
-
+            <div class="status-item">
+                <span>RISK ENGINE</span>
+                <strong class="online">READY</strong>
             </div>
 
-
-            <div class="signals">
-
-                <h4>🕸 SPIDEY-SENSE SIGNALS</h4>
-
-                <div id="signalList">
-
-                    <p class="empty">
-                        Analyze a transaction to see signals.
-                    </p>
-
-                </div>
-
+            <div class="status-item">
+                <span>EXPLAINABILITY</span>
+                <strong class="waiting">WAITING</strong>
             </div>
 
-
-            <div class="recommendation">
-
-                <span>RECOMMENDED ACTION</span>
-
-                <strong id="recommendation">
-                    —
-                </strong>
-
+            <div class="status-item">
+                <span>AI AGENT</span>
+                <strong class="online">ACTIVE</strong>
             </div>
 
         </div>
@@ -411,98 +212,357 @@
 </section>
 
 
-<!-- ================= HOW IT WORKS ================= -->
+<!-- ================= ANALOGY ================= -->
 
-<section id="how" class="how-section">
+<section class="section">
 
-    <div class="section-title">
+    <div class="section-number red-text">02 — THE ANALOGY</div>
 
-        <span>03 — THE ENGINE</span>
+    <h2>SPIDEY-SENSE = <span>FRAUD DETECTION</span></h2>
 
-        <h2>
-            HOW SPIDEY-SENSE
-            <strong>THINKS</strong>
-        </h2>
+    <div class="analogy-grid">
+
+        <div class="analogy-card spider-card">
+
+            <div class="icon red-icon">🕷</div>
+
+            <small>SPIDEY-SENSE</small>
+
+            <h3>SPIDER-MAN</h3>
+
+            <p>
+                Warned by danger before the threat fully strikes.
+            </p>
+
+            <strong>
+                He reacts quickly, tracks suspicious behavior
+                and connects signals.
+            </strong>
+
+        </div>
+
+
+        <div class="similar">
+            SIMILARLY
+            <div>→</div>
+        </div>
+
+
+        <div class="analogy-card ai-card">
+
+            <div class="icon blue-icon">AI</div>
+
+            <small>AI FRAUD ENGINE</small>
+
+            <h3>SPIDEY-SENSE</h3>
+
+            <p>
+                Detects abnormal transaction behavior before
+                it becomes a larger incident.
+            </p>
+
+            <strong>
+                It scores risk, explains evidence and triggers
+                the next action.
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= AI ENGINE ================= -->
+
+<section class="section" id="engine">
+
+    <div class="section-number blue-text">03 — THE ENGINE</div>
+
+    <h2>HOW THE AI GETS ITS <span>"SPIDEY-SENSE"</span></h2>
+
+
+    <div class="pipeline">
+
+        <div class="pipeline-box transaction">
+            TRANSACTION
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="pipeline-box features">
+            FEATURES
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="pipeline-box xgb">
+            XGBOOST
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="pipeline-box risk-engine">
+            RISK ENGINE
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="pipeline-box decision">
+            DECISION
+        </div>
 
     </div>
 
 
-    <div class="flow">
+    <div class="signals">
 
-        <div class="flow-card">
+        <div class="feature-list">
 
-            <div class="flow-number">01</div>
-
-            <h3>TRANSACTION</h3>
-
-            <p>
-                Transaction data enters the system.
-            </p>
-
-        </div>
-
-
-        <div class="arrow">→</div>
-
-
-        <div class="flow-card">
-
-            <div class="flow-number blue">02</div>
-
-            <h3>ML MODEL</h3>
-
-            <p>
-                XGBoost detects suspicious patterns.
-            </p>
+            <div>AMOUNT</div>
+            <div>LOCATION</div>
+            <div>TIME</div>
+            <div>DEVICE</div>
+            <div>VELOCITY</div>
+            <div>HISTORY</div>
 
         </div>
 
 
-        <div class="arrow">→</div>
+        <div class="spidey-signals">
+
+            <h3>SPIDEY-SENSE SIGNALS</h3>
+
+            <p>● Unusual amount</p>
+            <p>● New device</p>
+            <p>● Unusual location</p>
+            <p>● Abnormal timing</p>
+
+        </div>
+
+    </div>
+
+</section>
 
 
-        <div class="flow-card">
+<!-- ================= RESULT ================= -->
 
-            <div class="flow-number yellow">03</div>
+<section class="section result-section">
 
-            <h3>RISK ENGINE</h3>
+    <div class="section-number yellow-text">04 — LIVE SIGNAL</div>
 
-            <p>
-                Converts probability into risk.
-            </p>
+    <h2>SPIDEY-SENSE <span class="yellow">TINGLING</span></h2>
+
+
+    <div class="result-grid">
+
+        <div>
+
+            <div class="transaction-result normal">
+
+                <div class="result-title">
+                    ✓ NORMAL TRANSACTION
+                </div>
+
+                <p>₹2,450 • Chennai • Known device</p>
+
+                <p>10:42 AM • Familiar merchant</p>
+
+                <strong>Risk: 08% | LOW</strong>
+
+            </div>
+
+
+            <div class="transaction-result suspicious">
+
+                <div class="result-title">
+                    ! SUSPICIOUS TRANSACTION
+                </div>
+
+                <p>₹87,500 • Mumbai • NEW device</p>
+
+                <p>10:44 AM • Unfamiliar merchant</p>
+
+                <strong>Risk: 94% | CRITICAL</strong>
+
+            </div>
 
         </div>
 
 
-        <div class="arrow">→</div>
+        <div class="risk-radar">
 
+            <div class="big-ring ring-a"></div>
+            <div class="big-ring ring-b"></div>
+            <div class="big-ring ring-c"></div>
 
-        <div class="flow-card">
-
-            <div class="flow-number purple">04</div>
-
-            <h3>SHAP</h3>
-
-            <p>
-                Explains important features.
-            </p>
+            <div class="risk-number">
+                <strong id="riskDisplay">94%</strong>
+                <small>FRAUD RISK</small>
+            </div>
 
         </div>
 
 
-        <div class="arrow">→</div>
+        <div class="risk-signals">
+
+            <p>● Unusual amount</p>
+            <p>● New device</p>
+            <p>● Location anomaly</p>
+            <p>● Abnormal timing</p>
+
+        </div>
+
+    </div>
+
+</section>
 
 
-        <div class="flow-card">
+<!-- ================= FRAUD WEB ================= -->
 
-            <div class="flow-number green">05</div>
+<section class="section">
 
-            <h3>AI AGENT</h3>
+    <div class="section-number red-text">05 — THE MODEL</div>
 
+    <h2>THE <span>FRAUD WEB</span></h2>
+
+    <div class="fraud-web">
+
+        <div class="web-center">
+            <strong>XGBOOST</strong>
+            <span>RISK ENGINE</span>
+        </div>
+
+        <div class="web-node n1">AMOUNT</div>
+        <div class="web-node n2">DEVICE</div>
+        <div class="web-node n3">VELOCITY</div>
+        <div class="web-node n4">MERCHANT</div>
+        <div class="web-node n5">LOCATION</div>
+        <div class="web-node n6">TIME</div>
+        <div class="web-node n7">HISTORY</div>
+        <div class="web-node n8">PATTERN</div>
+        <div class="web-node n9">ACTION</div>
+
+    </div>
+
+    <p class="center-text">
+        Multiple signals connect to one decision.
+    </p>
+
+</section>
+
+
+<!-- ================= MISSION ================= -->
+
+<section class="section">
+
+    <div class="section-number red-text">06 — THE MISSION</div>
+
+    <h2>DETECT → ANALYZE → ALERT → PREVENT</h2>
+
+
+    <div class="mission">
+
+        <div class="mission-step detect">
+            <div class="step-number">1</div>
+            <h3>DETECT</h3>
+            <p>Spot behavioral anomalies.</p>
+        </div>
+
+        <div class="mission-line"></div>
+
+        <div class="mission-step analyze">
+            <div class="step-number">2</div>
+            <h3>ANALYZE</h3>
+            <p>Score the transaction with ML.</p>
+        </div>
+
+        <div class="mission-line"></div>
+
+        <div class="mission-step alert">
+            <div class="step-number">3</div>
+            <h3>ALERT</h3>
+            <p>Explain why risk is high.</p>
+        </div>
+
+        <div class="mission-line"></div>
+
+        <div class="mission-step prevent">
+            <div class="step-number">4</div>
+            <h3>PREVENT</h3>
+            <p>Recommend the next safe action.</p>
+        </div>
+
+    </div>
+
+    <p class="mission-footer">
+        The model predicts. The risk engine decides. The agent explains.
+    </p>
+
+</section>
+
+
+<!-- ================= TRUST ================= -->
+
+<section class="section">
+
+    <div class="section-number yellow-text">07 — TRUST</div>
+
+    <h2>BUT CAN SPIDEY-SENSE <span class="yellow">BE WRONG?</span></h2>
+
+
+    <div class="trust-grid">
+
+        <div class="trust-card false-positive">
+            <span>?</span>
+            <h3>FALSE POSITIVE</h3>
             <p>
-                Explains and recommends action.
+                Legitimate transaction flagged as suspicious.
             </p>
+            <strong>Cost: customer friction.</strong>
+        </div>
 
+        <div class="trust-card false-negative">
+            <span>!</span>
+            <h3>FALSE NEGATIVE</h3>
+            <p>
+                Fraudulent transaction missed by the model.
+            </p>
+            <strong>Cost: potential financial loss.</strong>
+        </div>
+
+        <div class="trust-card why">
+            <span>AI</span>
+            <h3>WHY IT MATTERS</h3>
+            <p>
+                A useful fraud model balances catching fraud
+                with controlling false alerts.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="metrics">
+
+        <div>
+            <strong>PRECISION</strong>
+            <span>How many flagged transactions are actually fraud?</span>
+        </div>
+
+        <div>
+            <strong>RECALL</strong>
+            <span>How much of the actual fraud did we catch?</span>
+        </div>
+
+        <div>
+            <strong>F1 SCORE</strong>
+            <span>Balance between precision and recall.</span>
+        </div>
+
+        <div>
+            <strong>PR-AUC</strong>
+            <span>Useful for imbalanced fraud detection.</span>
         </div>
 
     </div>
@@ -512,49 +572,226 @@
 
 <!-- ================= AGENT ================= -->
 
-<section class="agent-section">
+<section class="section" id="agent">
 
-    <div class="agent-card">
+    <div class="section-number blue-text">08 — DECISION INTELLIGENCE</div>
 
-        <div class="agent-left">
+    <h2>THE AGENT DOESN'T JUST SAY <span>"FRAUD."</span></h2>
 
-            <span>04 — DECISION INTELLIGENCE</span>
 
-            <h2>
-                THE AGENT DOESN'T
-                JUST SAY
-                <strong>"FRAUD."</strong>
-            </h2>
+    <div class="agent-grid">
 
-            <p>
-                It explains why the transaction is suspicious
-                and recommends the safest next action.
-            </p>
+        <div class="evidence-card">
+
+            <div class="card-header">
+                ⚠ TRANSACTION EVIDENCE
+            </div>
+
+            <h3>
+                Fraud probability:
+                <span id="probability">92%</span>
+            </h3>
+
+            <h3>
+                Risk score:
+                <span id="score">89 / 100</span>
+            </h3>
+
+            <h4>TOP SIGNALS</h4>
+
+            <ul id="agentSignals">
+                <li>Amount is 8.7× customer baseline</li>
+                <li>New device detected</li>
+                <li>6 transactions in 10 minutes</li>
+                <li>Unusual location</li>
+                <li>Unfamiliar merchant</li>
+            </ul>
 
         </div>
 
 
         <div class="agent-report">
 
-            <div class="report-label">
-                🧠 SPIDEY-SENSE REPORT
+            <div class="agent-label">
+                SPIDEY-SENSE REPORT
             </div>
 
-            <h3 id="agentRisk">
+            <h2 id="riskLevel">
                 HIGH / CRITICAL RISK
-            </h3>
+            </h2>
 
-            <h4>WHY?</h4>
+            <h3>Why?</h3>
 
             <p id="agentText">
-                Run a transaction analysis to generate
-                an AI explanation.
+                The transaction strongly deviates from the
+                customer's normal behavior across amount,
+                device, velocity and location.
             </p>
 
-            <button>
-                AI AGENT READY
+            <button onclick="recommendAction()">
+                RECOMMEND ACTION
             </button>
 
+            <div id="recommendation"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RISK DECISION ================= -->
+
+<section class="section" id="risk">
+
+    <h2 class="decision-title">
+        FROM <span>RISK SCORE</span> TO DECISION
+    </h2>
+
+    <p class="center-text">
+        Spidey-Sense maps every risk to a calibrated personal response.
+    </p>
+
+
+    <div class="decision-grid">
+
+        <div class="decision-card low">
+            <small>RISK SCORE: 0–30</small>
+            <h3>LOW</h3>
+            <strong>APPROVE AUTOMATICALLY</strong>
+            <p>Transaction matches customer profile.</p>
+        </div>
+
+
+        <div class="decision-card critical">
+            <small>RISK SCORE: 81–100</small>
+            <h3>CRITICAL</h3>
+            <strong>HOLD AND REVIEW</strong>
+            <p>Escalate to fraud analyst.</p>
+        </div>
+
+
+        <div class="decision-card medium">
+            <small>RISK SCORE: 31–60</small>
+            <h3>MEDIUM</h3>
+            <strong>MONITOR</strong>
+            <p>Flag for review but do not block.</p>
+        </div>
+
+
+        <div class="decision-card high">
+            <small>RISK SCORE: 61–80</small>
+            <h3>HIGH</h3>
+            <strong>ADDITIONAL VERIFICATION</strong>
+            <p>Request OTP or device confirmation.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FINAL PIPELINE ================= -->
+
+<section class="section">
+
+    <div class="section-number red-text">09 — THE BATTLE</div>
+
+    <h2>CATCHING THE <span>VILLAIN</span></h2>
+
+
+    <div class="battle">
+
+        <div>
+            <div class="battle-icon villain">?</div>
+            <strong>FRAUDSTER</strong>
+            <small>DETECT</small>
+        </div>
+
+        <div class="battle-arrow">→</div>
+
+        <div>
+            <div class="battle-box blue-border">
+                AI<br>
+                <strong>SPIDEY-SENSE</strong>
+            </div>
+            <small>ANALYZE</small>
+        </div>
+
+        <div class="battle-arrow">→</div>
+
+        <div>
+            <div class="battle-box yellow-border">
+                RISK<br>
+                <strong>ENGINE</strong>
+            </div>
+            <small>ALERT</small>
+        </div>
+
+        <div class="battle-arrow">→</div>
+
+        <div>
+            <div class="battle-box green-border">
+                THREAT<br>
+                <strong>STOPPED</strong>
+            </div>
+            <small>PREVENT</small>
+        </div>
+
+    </div>
+
+    <h3 class="battle-footer">
+        A complete path from transaction data to an explainable risk decision.
+    </h3>
+
+</section>
+
+
+<!-- ================= TECHNICAL ================= -->
+
+<section class="section technical">
+
+    <div class="section-number blue-text">10 — TECHNICAL BLUEPRINT</div>
+
+    <h2>WHAT WE ACTUALLY <span>BUILD</span></h2>
+
+
+    <div class="technical-list">
+
+        <div>
+            <b>DATA</b>
+            <span>Synthetic transactions • customer history • merchant/device data</span>
+        </div>
+
+        <div>
+            <b>FEATURES</b>
+            <span>Amount ratio • velocity • new device • location anomaly</span>
+        </div>
+
+        <div>
+            <b>ML</b>
+            <span>Logistic Regression + Random Forest + XGBoost</span>
+        </div>
+
+        <div>
+            <b>EXPLAIN</b>
+            <span>SHAP feature contributions + evidence summary</span>
+        </div>
+
+        <div>
+            <b>RISK</b>
+            <span>ML probability + deterministic rules → risk score</span>
+        </div>
+
+        <div>
+            <b>AGENT</b>
+            <span>Decision-support summary + constrained recommendation</span>
+        </div>
+
+        <div>
+            <b>APP</b>
+            <span>FastAPI real-time endpoint + frontend dashboard</span>
         </div>
 
     </div>
@@ -567,17 +804,21 @@
 <footer>
 
     <div class="footer-logo">
-        SPIDEY<span>-SENSE</span>
+        🕷 SPIDEY<span>-SENSE</span>
     </div>
 
+    <h2>
+        WITH GREAT DATA<br>
+        COMES GREAT <span>RESPONSIBILITY.</span>
+    </h2>
+
     <p>
-        The model predicts. The risk engine decides.
-        The agent explains.
+        Your money deserves a <strong>SPIDEY-SENSE.</strong>
     </p>
 
-    <small>
-        © 2026 SPIDEY-SENSE AI Fraud Detection
-    </small>
+    <div class="copyright">
+        SPIDEY-SENSE — AI FRAUD DETECTION
+    </div>
 
 </footer>
 
