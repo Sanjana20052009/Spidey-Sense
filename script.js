@@ -1,265 +1,664 @@
-/* ==========================================
+/* =========================================================
    SPIDEY-SENSE FRONTEND ENGINE
-========================================== */
+   Connected to FastAPI + XGBoost ML backend
+   ========================================================= */
 
 
-/* Smooth scroll */
+/* =========================================================
+   API CONFIGURATION
+   ========================================================= */
+
+const API_BASE_URL = "";
+
+
+/* =========================================================
+   SMOOTH SCROLL
+   ========================================================= */
 
 function scrollToAnalyzer() {
 
-    document
-        .getElementById("analyzer")
-        .scrollIntoView({
+    const analyzer = document.getElementById("analyzer");
+
+    if (analyzer) {
+        analyzer.scrollIntoView({
             behavior: "smooth"
         });
-
+    }
 }
 
 
-/* ==========================================
-   TRANSACTION ANALYSIS
-========================================== */
+/* =========================================================
+   SYSTEM STATUS
+   ========================================================= */
 
-function analyzeTransaction() {
+async function checkBackendHealth() {
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE_URL}/api/health`
+        );
+
+        if (!response.ok) {
+            throw new Error("Backend unavailable");
+        }
+
+        const data = await response.json();
+
+        console.log(
+            "Spidey-Sense backend:",
+            data
+        );
+
+        updateSystemStatus(
+            data.model_loaded
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Backend health check failed:",
+            error
+        );
+
+        updateSystemStatus(false);
+    }
+}
+
+
+function updateSystemStatus(modelOnline) {
+
+    const status = document.querySelector(
+        ".status"
+    );
+
+    if (!status) {
+        return;
+    }
+
+    if (modelOnline) {
+
+        status.innerHTML =
+            "<span></span> SYSTEM ONLINE";
+
+        status.style.color = "#38e58c";
+
+    } else {
+
+        status.innerHTML =
+            "<span></span> ML OFFLINE";
+
+        status.style.color = "#ff3344";
+    }
+}
+
+
+/* =========================================================
+   COLLECT FORM DATA
+   ========================================================= */
+
+function getTransactionData() {
 
     const amount =
-        Number(document.getElementById("amount").value);
+        Number(
+            document.getElementById(
+                "amount"
+            ).value
+        );
 
     const location =
-        document.getElementById("location").value;
+        document.getElementById(
+            "location"
+        ).value.trim();
 
     const device =
-        document.getElementById("device").value;
+        document.getElementById(
+            "device"
+        ).value;
+
+    const merchant =
+        document.getElementById(
+            "merchant"
+        ).value.trim();
 
     const velocity =
-        Number(document.getElementById("velocity").value);
-
-
-    /*
-        TEMPORARY DEMO LOGIC
-
-        Later this section will be replaced with:
-
-        fetch("http://localhost:8000/predict")
-
-        and your friend's actual ML model.
-    */
-
-
-    let score = 8;
-
-    let signals = [];
-
-
-    /* Amount */
-
-    if (amount > 50000) {
-
-        score += 30;
-
-        signals.push(
-            "Unusually large transaction amount"
+        Number(
+            document.getElementById(
+                "velocity"
+            ).value
         );
 
-    }
+    const time =
+        document.getElementById(
+            "time"
+        ).value;
 
-    else if (amount > 10000) {
 
-        score += 15;
+    return {
 
-        signals.push(
-            "Amount above normal baseline"
-        );
+        amount: amount,
 
-    }
+        location: location,
 
+        device: device,
 
-    /* Device */
+        merchant: merchant,
 
-    if (device === "New device") {
+        velocity: velocity,
 
-        score += 25;
-
-        signals.push(
-            "New device detected"
-        );
-
-    }
-
-
-    /* Velocity */
-
-    if (velocity >= 5) {
-
-        score += 20;
-
-        signals.push(
-            "High transaction velocity"
-        );
-
-    }
-
-
-    /* Location */
-
-    if (
-        location.toLowerCase() !== "chennai" &&
-        location.toLowerCase() !== "madurai" &&
-        location.toLowerCase() !== "coimbatore"
-    ) {
-
-        score += 15;
-
-        signals.push(
-            "Unusual location"
-        );
-
-    }
-
-
-    score = Math.min(score, 99);
-
-
-    let probability =
-        Math.round(score * 0.97);
-
-
-    let level;
-
-
-    if (score <= 30) {
-
-        level = "LOW RISK";
-
-    }
-
-    else if (score <= 60) {
-
-        level = "MEDIUM RISK";
-
-    }
-
-    else if (score <= 80) {
-
-        level = "HIGH RISK";
-
-    }
-
-    else {
-
-        level = "CRITICAL RISK";
-
-    }
-
-
-    /* ==========================================
-       UPDATE UI
-    ========================================== */
-
-    document.getElementById("riskDisplay")
-        .textContent = score + "%";
-
-
-    document.getElementById("probability")
-        .textContent = probability + "%";
-
-
-    document.getElementById("score")
-        .textContent = score + " / 100";
-
-
-    document.getElementById("riskLevel")
-        .textContent = level;
-
-
-    /* Signals */
-
-    const signalList =
-        document.getElementById("agentSignals");
-
-    signalList.innerHTML = "";
-
-
-    if (signals.length === 0) {
-
-        signals.push(
-            "Transaction matches normal behavior"
-        );
-
-    }
-
-
-    signals.forEach(signal => {
-
-        const li =
-            document.createElement("li");
-
-        li.textContent = signal;
-
-        signalList.appendChild(li);
-
-    });
-
-
-    /* Agent explanation */
-
-    let explanation;
-
-
-    if (score <= 30) {
-
-        explanation =
-            "The transaction closely matches the customer's normal behavioral pattern.";
-
-    }
-
-    else if (score <= 60) {
-
-        explanation =
-            "The transaction shows some unusual behavior and should be monitored.";
-
-    }
-
-    else if (score <= 80) {
-
-        explanation =
-            "The transaction contains multiple behavioral anomalies requiring additional verification.";
-
-    }
-
-    else {
-
-        explanation =
-            "The transaction strongly deviates from the customer's normal behavior across multiple risk signals.";
-
-    }
-
-
-    document.getElementById("agentText")
-        .textContent = explanation;
-
-
-    document
-        .querySelector(".agent-report")
-        .scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
+        time: time
+    };
 }
 
 
-/* ==========================================
-   AI AGENT RECOMMENDATION
-========================================== */
+/* =========================================================
+   VALIDATION
+   ========================================================= */
 
-function recommendAction() {
+function validateTransaction(data) {
+
+    if (
+        !Number.isFinite(data.amount) ||
+        data.amount < 0
+    ) {
+
+        alert(
+            "Please enter a valid transaction amount."
+        );
+
+        return false;
+    }
+
+
+    if (!data.location) {
+
+        alert(
+            "Please enter a transaction location."
+        );
+
+        return false;
+    }
+
+
+    if (!data.merchant) {
+
+        alert(
+            "Please enter a merchant."
+        );
+
+        return false;
+    }
+
+
+    if (
+        !Number.isFinite(data.velocity) ||
+        data.velocity < 0
+    ) {
+
+        alert(
+            "Please enter a valid transaction velocity."
+        );
+
+        return false;
+    }
+
+
+    if (!data.time) {
+
+        alert(
+            "Please enter a transaction time."
+        );
+
+        return false;
+    }
+
+
+    return true;
+}
+
+
+/* =========================================================
+   LOADING STATE
+   ========================================================= */
+
+function setAnalyzingState(isAnalyzing) {
+
+    const button =
+        document.querySelector(
+            ".analyze-btn"
+        );
+
+    if (!button) {
+        return;
+    }
+
+
+    if (isAnalyzing) {
+
+        button.disabled = true;
+
+        button.innerHTML =
+            "<span>🕷</span> ANALYZING...";
+
+        button.style.opacity = "0.6";
+
+    } else {
+
+        button.disabled = false;
+
+        button.innerHTML =
+            "<span>🕷</span> ANALYZE TRANSACTION";
+
+        button.style.opacity = "1";
+    }
+}
+
+
+/* =========================================================
+   UPDATE LIVE SYSTEM STATUS
+   ========================================================= */
+
+function updateAnalysisStatus() {
+
+    const waiting =
+        document.querySelector(
+            ".waiting"
+        );
+
+    if (waiting) {
+
+        waiting.textContent =
+            "COMPLETE";
+
+        waiting.style.color =
+            "#38e58c";
+    }
+}
+
+
+/* =========================================================
+   MAIN TRANSACTION ANALYSIS
+   ========================================================= */
+
+async function analyzeTransaction() {
+
+    const transaction =
+        getTransactionData();
+
+
+    if (!validateTransaction(transaction)) {
+        return;
+    }
+
+
+    setAnalyzingState(true);
+
+
+    try {
+
+        console.log(
+            "Sending transaction to ML backend:",
+            transaction
+        );
+
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/api/predict`,
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(
+                            transaction
+                        )
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.detail ||
+                "Prediction failed."
+            );
+        }
+
+
+        console.log(
+            "Spidey-Sense prediction:",
+            result
+        );
+
+
+        updateDashboard(
+            result
+        );
+
+
+        updateAnalysisStatus();
+
+
+        const report =
+            document.querySelector(
+                ".agent-report"
+            );
+
+
+        if (report) {
+
+            report.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Spidey-Sense error:",
+            error
+        );
+
+
+        alert(
+            "Unable to contact the Spidey-Sense ML backend.\n\n" +
+            error.message +
+            "\n\nMake sure you started app.py."
+        );
+
+    } finally {
+
+        setAnalyzingState(false);
+    }
+}
+
+
+/* =========================================================
+   UPDATE DASHBOARD
+   ========================================================= */
+
+function updateDashboard(result) {
+
+    const prediction =
+        result.prediction || {};
+
+    const signals =
+        result.signals || [];
+
+    const explanation =
+        result.explanation || "";
+
+
+    const riskScore =
+        Number(
+            prediction.risk_score || 0
+        );
+
+
+    const probability =
+        Number(
+            prediction.fraud_probability || 0
+        );
+
+
+    const riskLevel =
+        prediction.risk_level ||
+        "UNKNOWN";
+
+
+    /* -----------------------------------------------------
+       Risk display
+       ----------------------------------------------------- */
+
+    const riskDisplay =
+        document.getElementById(
+            "riskDisplay"
+        );
+
+
+    if (riskDisplay) {
+
+        riskDisplay.textContent =
+            `${riskScore}%`;
+    }
+
+
+    /* -----------------------------------------------------
+       Probability
+       ----------------------------------------------------- */
+
+    const probabilityElement =
+        document.getElementById(
+            "probability"
+        );
+
+
+    if (probabilityElement) {
+
+        probabilityElement.textContent =
+            `${Math.round(probability)}%`;
+    }
+
+
+    /* -----------------------------------------------------
+       Score
+       ----------------------------------------------------- */
+
+    const scoreElement =
+        document.getElementById(
+            "score"
+        );
+
+
+    if (scoreElement) {
+
+        scoreElement.textContent =
+            `${riskScore} / 100`;
+    }
+
+
+    /* -----------------------------------------------------
+       Risk level
+       ----------------------------------------------------- */
+
+    const riskLevelElement =
+        document.getElementById(
+            "riskLevel"
+        );
+
+
+    if (riskLevelElement) {
+
+        riskLevelElement.textContent =
+            riskLevel;
+    }
+
+
+    /* -----------------------------------------------------
+       Agent explanation
+       ----------------------------------------------------- */
+
+    const agentText =
+        document.getElementById(
+            "agentText"
+        );
+
+
+    if (agentText) {
+
+        agentText.textContent =
+            explanation;
+    }
+
+
+    /* -----------------------------------------------------
+       Signals
+       ----------------------------------------------------- */
+
+    const signalList =
+        document.getElementById(
+            "agentSignals"
+        );
+
+
+    if (signalList) {
+
+        signalList.innerHTML = "";
+
+
+        if (signals.length === 0) {
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+            li.textContent =
+                "Transaction matches normal behavior";
+
+            signalList.appendChild(li);
+
+        } else {
+
+            signals.forEach(
+                function(signal) {
+
+                    const li =
+                        document.createElement(
+                            "li"
+                        );
+
+                    li.textContent =
+                        signal;
+
+                    signalList.appendChild(
+                        li
+                    );
+                }
+            );
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       Recommendation
+       ----------------------------------------------------- */
+
+    const recommendation =
+        document.getElementById(
+            "recommendation"
+        );
+
+
+    if (recommendation) {
+
+        recommendation.textContent =
+            "";
+    }
+
+
+    /* -----------------------------------------------------
+       Update result cards
+       ----------------------------------------------------- */
+
+    updateResultCards(
+        riskScore
+    );
+}
+
+
+/* =========================================================
+   RESULT CARD UPDATE
+   ========================================================= */
+
+function updateResultCards(score) {
+
+    const normal =
+        document.querySelector(
+            ".transaction-result.normal"
+        );
+
+    const suspicious =
+        document.querySelector(
+            ".transaction-result.suspicious"
+        );
+
+
+    if (score <= 30) {
+
+        if (normal) {
+
+            normal.style.opacity = "1";
+            normal.style.transform =
+                "scale(1.02)";
+        }
+
+
+        if (suspicious) {
+
+            suspicious.style.opacity =
+                "0.45";
+
+            suspicious.style.transform =
+                "scale(1)";
+        }
+
+    } else {
+
+        if (normal) {
+
+            normal.style.opacity =
+                "0.45";
+
+            normal.style.transform =
+                "scale(1)";
+        }
+
+
+        if (suspicious) {
+
+            suspicious.style.opacity =
+                "1";
+
+            suspicious.style.transform =
+                "scale(1.02)";
+        }
+    }
+}
+
+
+/* =========================================================
+   AI AGENT RECOMMENDATION
+   ========================================================= */
+
+async function recommendAction() {
+
+    const scoreElement =
+        document.getElementById(
+            "score"
+        );
+
+
+    if (!scoreElement) {
+        return;
+    }
+
 
     const score =
         Number(
-            document
-                .getElementById("score")
-                .textContent
+            scoreElement.textContent
                 .split(" ")[0]
         );
 
@@ -272,63 +671,101 @@ function recommendAction() {
         recommendation =
             "✓ APPROVE — Transaction appears safe.";
 
-    }
-
-    else if (score <= 60) {
+    } else if (score <= 60) {
 
         recommendation =
             "⚠ MONITOR — Flag transaction for review.";
 
-    }
-
-    else if (score <= 80) {
+    } else if (score <= 80) {
 
         recommendation =
             "🔐 ADDITIONAL VERIFICATION — Request OTP/device confirmation.";
 
-    }
-
-    else {
+    } else {
 
         recommendation =
             "🚨 HOLD AND REVIEW — Escalate to fraud analyst.";
-
     }
 
 
-    document.getElementById("recommendation")
-        .textContent = recommendation;
+    const recommendationElement =
+        document.getElementById(
+            "recommendation"
+        );
 
+
+    if (recommendationElement) {
+
+        recommendationElement.textContent =
+            recommendation;
+    }
 }
 
 
-/* ==========================================
-   DEMO
-========================================== */
+/* =========================================================
+   DEMO TRANSACTION
+   ========================================================= */
 
 function showDemo() {
 
-    document.getElementById("amount").value = 87500;
+    document.getElementById(
+        "amount"
+    ).value = 87500;
 
-    document.getElementById("location").value = "Mumbai";
 
-    document.getElementById("device").value = "New device";
+    document.getElementById(
+        "location"
+    ).value = "Mumbai";
 
-    document.getElementById("merchant").value =
+
+    document.getElementById(
+        "device"
+    ).value = "New device";
+
+
+    document.getElementById(
+        "merchant"
+    ).value =
         "Unfamiliar merchant";
 
-    document.getElementById("velocity").value = 6;
 
-    document.getElementById("time").value = "10:44";
+    document.getElementById(
+        "velocity"
+    ).value = 6;
+
+
+    document.getElementById(
+        "time"
+    ).value = "10:44";
 
 
     scrollToAnalyzer();
 
 
-    setTimeout(() => {
+    setTimeout(
+        function() {
 
-        analyzeTransaction();
+            analyzeTransaction();
 
-    }, 700);
-
+        },
+        700
+    );
 }
+
+
+/* =========================================================
+   PAGE INITIALIZATION
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        console.log(
+            "Spider-Sense frontend initialized."
+        );
+
+
+        checkBackendHealth();
+    }
+);

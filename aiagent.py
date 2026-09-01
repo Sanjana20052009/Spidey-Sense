@@ -1,76 +1,113 @@
 import os
 import json
-import pandas as pd
-from xgboost import XGBClassifier
 from groq import Groq
 
-# 1. Load Trained Model
-MODEL_FILE = "xgboost_fraud_model.json"
-xgb_agent = XGBClassifier()
 
-if os.path.exists(MODEL_FILE):
-    xgb_agent.load_model(MODEL_FILE)
-else:
-    raise FileNotFoundError(f"'{MODEL_FILE}' not found. Please train the model first.")
+# ============================================================
+# GROQ CLIENT
+# ============================================================
 
-# 2. Initialize Groq Client
-# Change this inside aiagent.py
-client = Groq(api_key=os.getenv("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"))
+api_key = os.getenv("GROQ_API_KEY")
 
-def evaluate_transaction(transaction_data: dict) -> dict:
-    df_input = pd.DataFrame([transaction_data])
-    
-    # Calculate Fraud Probability
-    risk_score = float(xgb_agent.predict_proba(df_input)[0][1])
-    is_flagged = risk_score >= 0.50
+if not api_key:
+    raise RuntimeError(
+        "GROQ_API_KEY environment variable is not set."
+    )
 
-    transaction_summary = {col: val for col, val in zip(df_input.columns, df_input.values[0])}
-    alert_summary = ""
+client = Groq(api_key=api_key)
 
-    if is_flagged:
-        # Define prompt BEFORE calling the client
-        prompt = f"""
-        You are the 'Spider-Sense' Security AI Agent. 
-        A transaction was just flagged as POTENTIAL FRAUD with a risk score of {risk_score:.2%}.
 
-        Transaction Details:
-        {json.dumps(transaction_summary, indent=2)}
+# ============================================================
+# AI DECISION INTELLIGENCE
+# ============================================================
 
-        Provide a concise, 2-3 sentence 'Spider-Sense Alert' explaining why this transaction triggered the alert and what action the user or fraud analyst should take immediately.
-        """
-        
-        try:
-            response = client.chat.completions.create(
-                model="openai/gpt-oss-20b",  # Active Groq model string
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=150
-            )
-            alert_summary = response.choices[0].message.content.strip()
-        except Exception as e:
-            alert_summary = f"[Spider-Sense Alert] Risk Score: {risk_score:.2%}. (Error: {str(e)})"
-        alert_summary = f"Transaction verified safe. Risk score is low ({risk_score:.2%})."
+def evaluate_transaction(
+    transaction_data: dict,
+    fraud_probability: float,
+    risk_score: int,
+    signals: list[str]
+) -> dict:
+    """
+    Generate an AI-powered explanation and recommendation.
+
+    XGBoost is responsible for the fraud prediction.
+    This function uses the prediction + transaction evidence
+    to generate human-readable decision intelligence.
+    """
+
+    transaction_summary = {
+        key: value
+        for key, value in transaction_data.items()
+        if value is not None
+    }
+
+    prompt = f"""
+You are Spidey-Sense, a financial fraud decision-intelligence AI.
+
+Analyze the transaction using ONLY the evidence provided below.
+
+TRANSACTION:
+{json.dumps(transaction_summary, indent=2)}
+
+MACHINE LEARNING FRAUD PROBABILITY:
+{fraud_probability:.2f}%
+
+FINAL RISK SCORE:
+{risk_score}/100
+
+DETECTED RISK SIGNALS:
+{json.dumps(signals, indent=2)}
+
+Your task is to provide a concise decision-support response.
+
+Return EXACTLY this structure:
+
+ASSESSMENT:
+<2-3 sentences explaining the risk using the supplied evidence>
+
+ACTION:
+<one clear recommended action>
+
+Do not invent transaction information.
+Do not change the ML probability or risk score.
+Do not claim certainty that a transaction is fraudulent.
+"""
+
+    try:
+
+        response = client.chat.completions.create(
+            model="openai/gpt-oss-20b",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            max_tokens=200,
+            temperature=0.2
+        )
+
+        ai_response = (
+            response.choices[0]
+            .message
+            .content
+            .strip()
+        )
+
+    except Exception as exc:
+
+        print("AI Agent error:", exc)
+
+        ai_response = (
+            "ASSESSMENT:\n"
+            "The transaction requires review based on "
+            "the available machine-learning and behavioral signals.\n\n"
+            "ACTION:\n"
+            "Review the transaction and apply additional "
+            "authentication if required."
+        )
 
     return {
-        "risk_score": round(risk_score, 4),
-        "flagged": is_flagged,
-        "spider_sense_alert": alert_summary
+        "spider_sense_alert": ai_response,
+        "ai_generated": True
     }
-
-if __name__ == "__main__":
-    sample_transaction = {
-        "amount": 450.00,
-        "transaction_hour": 3,
-        "foreign_transaction": 1,
-        "location_mismatch": 1,
-        "device_trust_score": 0.2,
-        "velocity_last_24h": 8,
-        "cardholder_age": 29,
-        "merchant_category_Electronics": 1,
-        "merchant_category_Food": 0,
-        "merchant_category_Grocery": 0,
-        "merchant_category_Travel": 0
-    }
-
-    result = evaluate_transaction(sample_transaction)
-    print("\n--- Agent Output ---")
-    print(result["spider_sense_alert"])
