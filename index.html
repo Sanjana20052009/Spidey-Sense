@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SPIDEY-SENSE | AI Fraud Detection</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        <span>SPIDEY</span><b>-SENSE</b>
+    </div>
+
+    <div class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#analyzer">Analyzer</a>
+        <a href="#how">How It Works</a>
+    </div>
+
+    <div class="status">
+        <span class="status-dot"></span>
+        SYSTEM ONLINE
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="tag">
+            🕷 AI-POWERED FRAUD DETECTION
+        </div>
+
+        <h1>
+            Your money deserves a
+            <span>SPIDEY-SENSE.</span>
+        </h1>
+
+        <p>
+            Detect suspicious transactions before they become
+            financial threats.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button
+                class="primary-btn"
+                onclick="scrollToAnalyzer()">
+                ANALYZE TRANSACTION →
+            </button>
+
+            <button
+                class="secondary-btn"
+                onclick="scrollToHow()">
+                HOW IT WORKS
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="spider-visual">
+
+        <div class="radar">
+
+            <div class="radar-ring ring1"></div>
+            <div class="radar-ring ring2"></div>
+            <div class="radar-ring ring3"></div>
+
+            <div class="radar-line"></div>
+
+            <div class="radar-dot"></div>
+
+            <div class="radar-center">
+                <span>AI</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section id="dashboard" class="dashboard-section">
+
+    <div class="section-title">
+
+        <span>01 — LIVE MONITORING</span>
+
+        <h2>
+            SPIDEY-SENSE
+            <strong>DASHBOARD</strong>
+        </h2>
+
+    </div>
+
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon blue-icon">⚡</div>
+
+            <p>TRANSACTIONS ANALYZED</p>
+
+            <h3 id="transactions">12,481</h3>
+
+            <small>↑ 12.4% today</small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon red-icon">⚠</div>
+
+            <p>THREATS DETECTED</p>
+
+            <h3 id="threats">347</h3>
+
+            <small>Requires attention</small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon green-icon">✓</div>
+
+            <p>SAFE TRANSACTIONS</p>
+
+            <h3>97.2%</h3>
+
+            <small>Current detection rate</small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon purple-icon">🧠</div>
+
+            <p>MODEL CONFIDENCE</p>
+
+            <h3>94.8%</h3>
+
+            <small>AI confidence</small>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ANALYZER ================= -->
+
+<section id="analyzer" class="analyzer-section">
+
+    <div class="section-title">
+
+        <span>02 — TRANSACTION ANALYZER</span>
+
+        <h2>
+            LET THE
+            <strong>SPIDEY-SENSE</strong>
+            TINGLE
+        </h2>
+
+        <p>
+            Enter transaction information to simulate fraud analysis.
+        </p>
+
+    </div>
+
+
+    <div class="analyzer-container">
+
+
+        <!-- INPUT CARD -->
+
+        <div class="input-card">
+
+            <h3>TRANSACTION DETAILS</h3>
+
+            <div class="form-grid">
+
+
+                <div class="input-group">
+
+                    <label>Transaction Amount</label>
+
+                    <div class="input-wrapper">
+                        <span>₹</span>
+
+                        <input
+                            id="amount"
+                            type="number"
+                            value="87500">
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Customer Average</label>
+
+                    <div class="input-wrapper">
+                        <span>₹</span>
+
+                        <input
+                            id="average"
+                            type="number"
+                            value="10000">
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Transaction Location</label>
+
+                    <input
+                        id="location"
+                        type="text"
+                        value="Mumbai">
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Usual Location</label>
+
+                    <input
+                        id="usualLocation"
+                        type="text"
+                        value="Chennai">
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Transaction Time</label>
+
+                    <input
+                        id="time"
+                        type="time"
+                        value="10:44">
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Transactions / 10 min</label>
+
+                    <input
+                        id="velocity"
+                        type="number"
+                        value="6">
+
+                </div>
+
+            </div>
+
+
+            <div class="switches">
+
+                <label class="switch-row">
+
+                    <span>
+                        <b>New Device</b>
+                        <small>Device not previously seen</small>
+                    </span>
+
+                    <input
+                        id="newDevice"
+                        type="checkbox"
+                        checked>
+
+                    <span class="slider"></span>
+
+                </label>
+
+
+                <label class="switch-row">
+
+                    <span>
+                        <b>Unfamiliar Merchant</b>
+                        <small>Merchant not in history</small>
+                    </span>
+
+                    <input
+                        id="merchant"
+                        type="checkbox"
+                        checked>
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <button
+                class="analyze-btn"
+                onclick="analyzeTransaction()">
+
+                🕷 ANALYZE TRANSACTION
+
+            </button>
+
+        </div>
+
+
+        <!-- RESULT CARD -->
+
+        <div class="result-card">
+
+            <div class="result-header">
+
+                <span>AI ANALYSIS</span>
+
+                <div id="riskBadge" class="risk-badge">
+                    WAITING
+                </div>
+
+            </div>
+
+
+            <div class="risk-circle">
+
+                <div class="circle-inner">
+
+                    <strong id="riskScore">
+                        --
+                    </strong>
+
+                    <span>RISK SCORE</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="probability">
+
+                <span>FRAUD PROBABILITY</span>
+
+                <strong id="probability">
+                    --%
+                </strong>
+
+            </div>
+
+
+            <div class="signals">
+
+                <h4>🕸 SPIDEY-SENSE SIGNALS</h4>
+
+                <div id="signalList">
+
+                    <p class="empty">
+                        Analyze a transaction to see signals.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="recommendation">
+
+                <span>RECOMMENDED ACTION</span>
+
+                <strong id="recommendation">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section id="how" class="how-section">
+
+    <div class="section-title">
+
+        <span>03 — THE ENGINE</span>
+
+        <h2>
+            HOW SPIDEY-SENSE
+            <strong>THINKS</strong>
+        </h2>
+
+    </div>
+
+
+    <div class="flow">
+
+        <div class="flow-card">
+
+            <div class="flow-number">01</div>
+
+            <h3>TRANSACTION</h3>
+
+            <p>
+                Transaction data enters the system.
+            </p>
+
+        </div>
+
+
+        <div class="arrow">→</div>
+
+
+        <div class="flow-card">
+
+            <div class="flow-number blue">02</div>
+
+            <h3>ML MODEL</h3>
+
+            <p>
+                XGBoost detects suspicious patterns.
+            </p>
+
+        </div>
+
+
+        <div class="arrow">→</div>
+
+
+        <div class="flow-card">
+
+            <div class="flow-number yellow">03</div>
+
+            <h3>RISK ENGINE</h3>
+
+            <p>
+                Converts probability into risk.
+            </p>
+
+        </div>
+
+
+        <div class="arrow">→</div>
+
+
+        <div class="flow-card">
+
+            <div class="flow-number purple">04</div>
+
+            <h3>SHAP</h3>
+
+            <p>
+                Explains important features.
+            </p>
+
+        </div>
+
+
+        <div class="arrow">→</div>
+
+
+        <div class="flow-card">
+
+            <div class="flow-number green">05</div>
+
+            <h3>AI AGENT</h3>
+
+            <p>
+                Explains and recommends action.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= AGENT ================= -->
+
+<section class="agent-section">
+
+    <div class="agent-card">
+
+        <div class="agent-left">
+
+            <span>04 — DECISION INTELLIGENCE</span>
+
+            <h2>
+                THE AGENT DOESN'T
+                JUST SAY
+                <strong>"FRAUD."</strong>
+            </h2>
+
+            <p>
+                It explains why the transaction is suspicious
+                and recommends the safest next action.
+            </p>
+
+        </div>
+
+
+        <div class="agent-report">
+
+            <div class="report-label">
+                🧠 SPIDEY-SENSE REPORT
+            </div>
+
+            <h3 id="agentRisk">
+                HIGH / CRITICAL RISK
+            </h3>
+
+            <h4>WHY?</h4>
+
+            <p id="agentText">
+                Run a transaction analysis to generate
+                an AI explanation.
+            </p>
+
+            <button>
+                AI AGENT READY
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        SPIDEY<span>-SENSE</span>
+    </div>
+
+    <p>
+        The model predicts. The risk engine decides.
+        The agent explains.
+    </p>
+
+    <small>
+        © 2026 SPIDEY-SENSE AI Fraud Detection
+    </small>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
