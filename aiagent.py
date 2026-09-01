@@ -14,7 +14,8 @@ else:
     raise FileNotFoundError(f"'{MODEL_FILE}' not found. Please train the model first.")
 
 # 2. Initialize Groq Client
-client = Groq(api_key=os.getenv("GROQ_API_KEY", "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"))
+# Change this inside aiagent.py
+client = Groq(api_key=os.getenv("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"))
 
 def evaluate_transaction(transaction_data: dict) -> dict:
     df_input = pd.DataFrame([transaction_data])
